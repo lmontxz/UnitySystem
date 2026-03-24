@@ -1,36 +1,59 @@
+# 📦 Stock Management API
 
-# 🧩 Unity System API
+API desenvolvida para **controle de estoque**, permitindo o gerenciamento de produtos, entradas, saídas e organização de itens de forma eficiente.
 
-API desenvolvida para gerenciamento de recursos, projetada com arquitetura **multitenant**, permitindo atender múltiplas empresas em uma única aplicação.
-
-O sistema é genérico e pode ser aplicado em diversos contextos, como:
-
-* 📚 Gerenciamento de livros
-* 📦 Controle de estoque
-* 🏫 Gestão escolar
-* 🏢 Sistemas empresariais em geral
+O sistema foi projetado com arquitetura **multitenant**, possibilitando que múltiplas empresas utilizem a mesma aplicação com isolamento de dados.
 
 
 ## 🚀 Objetivo
 
-Este projeto foi desenvolvido como parte da disciplina de **Sistemas Distribuídos**, ministrada pelo professor Alexandre Montanha.
+Este projeto foi desenvolvido para a disciplina de **Sistemas Distribuídos**, ministrada pelo professor Alexandre Montanha, com o objetivo de demonstrar a construção de uma API:
 
-O objetivo é demonstrar a construção de uma API escalável, reutilizável e preparada para múltiplos clientes (empresas), seguindo boas práticas de arquitetura.
+* Escalável
+* Reutilizável
+* Preparada para múltiplos clientes (empresas)
+* Aplicável em cenários reais de mercado
 
 
-## 🏗️ Arquitetura Multitenant
+## 🏗️ Arquitetura
 
-O Unity System utiliza o modelo:
+A API utiliza o modelo:
 
 > **Banco de Dados Compartilhado com Chave de Discriminação**
 
+
+## 🧩 Multitenancy
+
 ### 🔐 Isolamento de Dados
 
-Cada requisição deve conter um identificador de empresa (`empresa`), garantindo que os dados sejam filtrados corretamente.
+Cada requisição deve informar a empresa através do parâmetro:
+
+```http
+?empresa=nome_da_empresa
+```
+
+Isso garante que cada empresa tenha acesso apenas aos seus próprios dados.
+
 
 ### 📈 Escalabilidade
 
-Novas empresas podem ser adicionadas sem necessidade de alteração no código principal, apenas cadastrando um novo identificador.
+Novas empresas podem ser adicionadas facilmente, sem necessidade de alterações no código da aplicação.
+
+
+## 📁 Estrutura do Projeto
+
+O projeto segue o princípio de **separação de responsabilidades**, dividido em camadas:
+
+```
+src/
+├── Controllers/    # Endpoints da API
+├── Services/       # Regras de negócio
+├── Repositories/   # Acesso ao banco de dados
+├── Models/         # Entidades do sistema
+├── DTOs/           # Objetos de entrada e saída
+├── Middlewares/    # Controle de requisições (multitenant)
+└── Config/         # Configurações gerais
+```
 
 
 ## 🔗 Exemplos de Requisições
@@ -38,30 +61,42 @@ Novas empresas podem ser adicionadas sem necessidade de alteração no código p
 ```http
 GET http://localhost:5000/status
 
-GET http://localhost:5000/produtos?empresa=fornodouro
+GET http://localhost:5000/produtos?empresa=empresaA
 
-GET http://localhost:5000/produtos?empresa=lflupas
+POST http://localhost:5000/produtos?empresa=empresaA
 
-GET http://localhost:5000/produtos?empresa=escola
+GET http://localhost:5000/estoque?empresa=empresaB
 ```
 
 
-## ⚙️ Funcionamento
+## ⚙️ Funcionalidades
 
-* Todas as requisições dependem do parâmetro `empresa`
-* Esse parâmetro define o contexto dos dados
-* A API filtra automaticamente as informações com base nesse identificador
+* 📦 Cadastro de produtos
+* 📥 Registro de entrada de estoque
+* 📤 Registro de saída de estoque
+* 📊 Consulta de itens disponíveis
+* 🏢 Separação de dados por empresa
 
 
 ## 🧠 Conceitos Aplicados
 
 * Arquitetura Multitenant
 * APIs RESTful
+* Sistemas Distribuídos
 * Separação de responsabilidades
-* Escalabilidade horizontal
-* Sistemas distribuídos
+* Escalabilidade
+
+
+## 🛠️ Tecnologias Utilizadas
+
+
+* .NET
+* C#
+* Entity Framework (se aplicável)
+* SQL Server / MySQL
 
 
 ## 📌 Observações
 
-Este projeto foi desenvolvido com fins acadêmicos, mas seguindo conceitos que podem ser aplicados em sistemas reais de produção.
+Este projeto foi desenvolvido como parte da disciplina de Sistemas Distribuídos, abordando conceitos aplicados em sistemas reais de controle de estoque.
+
