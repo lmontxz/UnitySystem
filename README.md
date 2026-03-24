@@ -59,13 +59,9 @@ src/
 ## 🔗 Exemplos de Requisições
 
 ```http
-GET http://localhost:5000/status
+GET http://localhost:5000
 
-GET http://localhost:5000/produtos?empresa=empresaA
-
-POST http://localhost:5000/produtos?empresa=empresaA
-
-GET http://localhost:5000/estoque?empresa=empresaB
+GET http://localhost:5000/lista
 ```
 
 
